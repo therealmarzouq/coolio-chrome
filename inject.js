@@ -3,7 +3,7 @@ if (document.getElementById("roller-extension")) {
 } else {
   const modal = document.createElement("iframe");
   modal.setAttribute("id", "roller-extension");
-  modal.src = "https://therealmarzouq.github.io/coolio-chrome/popup.html";
+  modal.src = "http://127.0.0.1:5500/popup.html";
   modal.allowtransparency = true;
   modal.style.border = 0;
   modal.style.height = "2500px";

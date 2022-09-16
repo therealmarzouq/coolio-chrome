@@ -63,7 +63,64 @@
         flex-grow: 3;
     }
 
-    .modal>.modal__header>.modal__close>a {
+    .roller__button {
+        cursor: pointer;
+        border: transparent;
+        box-sizing: border-box;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 1.3rem;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 12px;
+        display: flex;
+        gap: 8px;
+        isolation: isolate;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    .roller__button--primary {
+        color: rgb(57, 41, 40);
+        background: linear-gradient(90deg, #FFE78E 0%, #FFF96C 100%);
+        /* background: linear-gradient(259.06deg, #D8FB00 0%, #FFE78E 100%); */
+        border-bottom: 2px solid rgba(57, 41, 40, 0.05);
+        min-width: 72px;
+    }
+
+    .roller__button>.roller__button-text {
+        position: relative;
+        z-index: 50;
+    }
+
+    .roller__button .loading {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(270deg, #D8FB00 0%, rgba(216, 251, 0, 0) 100%);
+        position: absolute;
+        left: 0;
+        transition: width 1s ease-in-out;
+    }
+
+    .roller__button .loading.animate {
+        animation: loading 4.5s linear;
+    }
+
+    .roller__button--primary:hover {
+        background: linear-gradient(0deg, rgba(57, 41, 40, 0.05), rgba(57, 41, 40, 0.05)), linear-gradient(259.06deg, #D8FB00 0%, #FFE78E 100%);
+    }
+
+    .roller__button--primary:active {
+        background: linear-gradient(0deg, rgba(57, 41, 40, 0.1), rgba(57, 41, 40, 0.1)), linear-gradient(259.06deg, #D8FB00 0%, #FFE78E 100%);
+    }
+
+    .roller__button--secondary {
+        color: rgba(57, 41, 40, 0.5);
+        background-color: transparent;
         cursor: pointer;
         font-family: 'Inter';
         font-style: normal;
@@ -72,8 +129,14 @@
         font-size: 1.3rem;
     }
 
-    .modal>.modal__header>.modal__close>a:hover {
-        text-decoration: underline;
+    .roller__button--secondary:hover {
+        color: rgba(57, 41, 40, 0.5);
+        background: rgba(57, 41, 40, 0.05);
+    }
+
+    .roller__button--secondary:active {
+        color: rgba(57, 41, 40, 0.5);
+        background: rgba(57, 41, 40, 0.1);
     }
 
     .modal>.modal__header>h1 {
@@ -101,7 +164,9 @@
         box-sizing: border-box;
         width: 100%;
         height: 56px;
+        min-height: 56px;
         color: #392928;
+        border: 1px solid #ffffff;
     }
 
     .roller__input:hover {
@@ -120,34 +185,7 @@
         align-items: center;
     }
 
-    .roller__button {
-        border: transparent;
-        cursor: pointer;
-        box-sizing: border-box;
 
-        /* Auto layout */
-
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 8px 12px;
-        gap: 8px;
-        isolation: isolate;
-
-        width: 72px;
-        height: 32px;
-
-        background: linear-gradient(90deg, #FFE78E 0%, #FFF96C 100%);
-        border-bottom: 2px solid rgba(57, 41, 40, 0.05);
-        border-radius: 8px;
-
-        /* Inside auto layout */
-
-        flex: none;
-        order: 1;
-        flex-grow: 0;
-    }
 
     .roller__actions {
         display: flex;
@@ -174,19 +212,23 @@
     .roller__privacy-control>label {
         padding: 6px 12px;
         display: flex;
-        gap: 5px;
+        gap: 4px;
         align-items: center;
         color: rgba(57, 41, 40, 0.75);
         cursor: pointer;
+        border-radius: 4px;
     }
 
 
     .roller__privacy-control input[type="radio"]:checked+label {
         background-color: #FFFFFF;
         box-shadow: 0px 1px 2px rgba(57, 41, 40, 0.2);
-        border-radius: 4px;
         color: #392928;
         transition: all 0.3s linear;
+    }
+
+    .roller__privacy-control input[type="radio"]:hover+label {
+        background: rgba(57, 41, 40, 0.1);
     }
 
     .roller__privacy-control>input {
@@ -195,6 +237,20 @@
         height: 100%;
         margin: 0;
         opacity: 0;
+    }
+
+    .enter-caption {
+        font-size: 0.9rem;
+        line-height: 12px;
+        text-align: center;
+        color: rgba(57, 41, 40, 0.5);
+        margin-top: 2px;
+        margin-bottom: -1.4rem;
+        display: none;
+    }
+
+    .enter-caption.show {
+        display: block;
     }
 
     @keyframes slideInFromTop {
@@ -220,19 +276,41 @@
             transform: translateY(-100%);
         }
     }
+
+    @keyframes loading {
+        0% {
+            width: 0%;
+        }
+
+        25% {
+            width: 25%;
+        }
+
+        50% {
+            width: 50%;
+        }
+
+        75% {
+            width: 75%;
+        }
+
+        100% {
+            width: 100%;
+        }
+    }
 </style>
 
 <body>
     <div class="modal">
         <div class="modal__header">
             <div class="modal__close">
-                <a onclick="closeRoller(event)">Cancel</a>
+                <button class="roller__button roller__button--secondary" onclick="closeRoller(event)">Cancel</>
             </div>
             <h1>Roll up</h1>
         </div>
-        <div class="modal__body">
+        <form class="modal__body">
             <div class="image"></div>
-            <textarea class="roller__input" name="" placeholder="Add a note..."></textarea>
+            <textarea class="roller__input" id="roller-input" name="" placeholder="Add a note..."></textarea>
             <div class="roller__actions">
                 <div class="roller__privacy">
                     <div class="roller__privacy-control">
@@ -261,10 +339,17 @@
                     </div>
                 </div>
                 <div class="roller__complete">
-                    <button class="roller__button" onclick="closeRoller(event)">Done</button>
+                    <button type="submit" id="submit-roll" class="roller__button roller__button--primary"
+                        onclick="saveRoll(event)">
+                        <div class="roller__button-text">
+                            Done
+                        </div>
+                        <div class="loading" id="loading"></div>
+                    </button>
+                    <div class="enter-caption" id="enter-caption">Enter</div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
     <script src="./popup.js"></script>
 </body>

@@ -1,6 +1,7 @@
 {
   "name": "Roller Extension",
   "action": {
+    "default_title": "Roll up this page",
     "default_icon": "icon.png"
   },
   "description": "Sprout Roller extension test",
