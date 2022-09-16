@@ -1,0 +1,14 @@
+{
+  "name": "Roller Extension",
+  "action": {
+    "default_icon": "icon.png"
+  },
+  "description": "Sprout Roller extension test",
+  "icons": { "128": "icon.png" },
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "permissions": ["activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
