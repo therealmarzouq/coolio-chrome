@@ -87,7 +87,6 @@
     .roller__button--primary {
         color: rgb(57, 41, 40);
         background: linear-gradient(90deg, #FFE78E 0%, #FFF96C 100%);
-        /* background: linear-gradient(259.06deg, #D8FB00 0%, #FFE78E 100%); */
         border-bottom: 2px solid rgba(57, 41, 40, 0.05);
         min-width: 72px;
     }
@@ -108,6 +107,14 @@
 
     .roller__button .loading.animate {
         animation: loading 4.5s linear;
+    }
+
+    .roller__button .loading.animate.paused {
+        animation-play-state: paused;
+    }
+
+    .roller__button .loading.animate.running {
+        animation-play-state: running;
     }
 
     .roller__button--primary:hover {
@@ -301,10 +308,10 @@
 </style>
 
 <body>
-    <div class="modal">
+    <div class="modal" id="roller-modal">
         <div class="modal__header">
             <div class="modal__close">
-                <button class="roller__button roller__button--secondary" onclick="closeRoller(event)">Cancel</>
+                <button class="roller__button roller__button--secondary" onclick="closeRoller()">Cancel</>
             </div>
             <h1>Roll up</h1>
         </div>
@@ -344,7 +351,7 @@
                         <div class="roller__button-text">
                             Done
                         </div>
-                        <div class="loading" id="loading"></div>
+                        <div class="loading animate" id="loading"></div>
                     </button>
                     <div class="enter-caption" id="enter-caption">Enter</div>
                 </div>

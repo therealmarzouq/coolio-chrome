@@ -1,8 +1,10 @@
-if (document.getElementById("roller-extension")) {
-  document.getElementById("roller-extension").remove();
+var rollerExtension = document.getElementById("roller-extension");
+if (rollerExtension) {
+  rollerExtension.remove();
 } else {
   const modal = document.createElement("iframe");
   modal.setAttribute("id", "roller-extension");
+  //   modal.src = "http://127.0.0.1:5500/popup.html";
   modal.src = "https://therealmarzouq.github.io/coolio-chrome/popup.html";
   modal.allowtransparency = true;
   modal.style.border = 0;
@@ -28,7 +30,11 @@ if (document.getElementById("roller-extension")) {
     }
   }
 
-  function closeRoller() {
-    document.getElementById("roller-extension").remove();
+  function removeRoller() {
+    var rollerExtension = document.getElementById("roller-extension");
+    if (!rollerExtension) {
+      return;
+    }
+    rollerExtension.remove();
   }
 }
